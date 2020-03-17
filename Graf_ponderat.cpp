@@ -220,26 +220,30 @@ void Graf_ponderat::Conex(){
 }
 /// Supraincarcarea operatorului *
 Graf_ponderat Graf_ponderat:: operator *(const Graf_ponderat &G1){
-    int i,j;
-    int **a,**b;
-    a=new int*[n];
-    b=new int*[n];
-    for (i=0;i<n;i++){
-        a[i]=new int[n];
-        b[i]=new int[n];
-        }
-    Graf_ponderat G2(a,b,n);
-    for(i=0;i<n;i++)
-        for(j=0;j<n;j++)
-            G2.mat[i][j]=G2.mat2[i][j]=0;
-    for(i=0;i<n;i++)
-        for(j=0;j<n;j++)
-            if(mat2[i][j]&&G1.mat2[i][j]){
-                G2.mat2[i][j]=1;
-                if(mat[i][j]>G1.mat[i][j])
-                    G2.mat[i][j]=G1.mat[i][j];
-                else
-                    G2.mat[i][j]=mat[i][j];
+    if(n==G1.n){
+        int i,j;
+        int **a,**b;
+        a=new int*[n];
+        b=new int*[n];
+        for (i=0;i<n;i++){
+            a[i]=new int[n];
+            b[i]=new int[n];
             }
-    return G2;
+        Graf_ponderat G2(a,b,n);
+        for(i=0;i<n;i++)
+            for(j=0;j<n;j++)
+                G2.mat[i][j]=G2.mat2[i][j]=0;
+        for(i=0;i<n;i++)
+            for(j=0;j<n;j++)
+                if(mat2[i][j]&&G1.mat2[i][j]){
+                    G2.mat2[i][j]=1;
+                    if(mat[i][j]>G1.mat[i][j])
+                        G2.mat[i][j]=G1.mat[i][j];
+                    else
+                        G2.mat[i][j]=mat[i][j];
+                }
+        return G2;
+    }
+    else
+        cout<<"eroare - dimensiuni dieferite de grafuri";
 }
